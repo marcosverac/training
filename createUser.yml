@@ -1,0 +1,11 @@
+---
+- name: Playbook to create user
+  hosts: "{{ hostname }}" 
+  become: true
+  tasks:
+  - name: create user 
+    ansible.builtin.user:
+      name: trainiguser
+      state: present
+      shell: /bin/bash
+      createhome: yes

@@ -41,7 +41,6 @@
         msg: "{{ lookup('vars', 'hostname_servidor_' ~ inventory_hostname) }}"
 
 
-
 - name: Traer archivos desde nodos controlador a Linux
   hosts: ansible_controller
   gather_facts: false

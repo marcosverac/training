@@ -6,6 +6,13 @@
     remote_output_dir: "C:\\tmp"
     local_output_dir: "/tmp/estado_servidores/"
   tasks:
+    - name: Crear carpeta local en el controlador
+      file:
+        path: "{{ local_output_dir }}"
+        state: directory
+        mode: '0755'
+      delegate_to: ansible_controller
+      ignore_errors: true
  #   - name: Traer reporte al controlador desde Windows
  #     fetch:
  #       src: "{{ remote_output_dir }}\\datos_estado_servidor_{{ inventory_hostname }}.yml"

@@ -12,6 +12,7 @@
         state: directory
         mode: '0755'
       delegate_to: localhost
+      become: false
       when: inventory_hostname == 'ansible_controller'
       ignore_errors: true
 
@@ -27,5 +28,6 @@
       shell: 'ls /home/estado_servidores/'
       register: output
       delegate_to: localhost
+      become: false
       when: inventory_hostname == 'ansible_controller'
       ignore_errors: true

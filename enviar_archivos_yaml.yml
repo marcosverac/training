@@ -6,6 +6,14 @@
     remote_output_dir: "C:\\tmp"
     local_output_dir: "/home/estado_servidores/"
   tasks:
+    - name: Asignar inventory_hostname a variable hostname_servidor_windows
+      set_fact:
+        hostname_servidor_windows: "{{ inventory_hostname }}"
+
+    - name: Mostrar hostname_servidor_windows
+      debug:
+        var: hostname_servidor_windows
+        
     - name: Crear carpeta local en el controlador
       file:
         path: "{{ local_output_dir }}"
@@ -34,9 +42,8 @@
 
     - name: Copiar archivo al servidor destino
       copy:
-        src: '{{ local_output_dir }}datos_estado_servidor_{{ inventory_hostname }}.yml'
+        src: '{{ local_output_dir }}datos_estado_servidor_{{ hostname_servidor_windows }}.yml'
         dest: '/home/usr_controller/'
       delegate_to: ansible_controller
-      become: false
       when: inventory_hostname == 'ansible_controller'
       ignore_errors: true  

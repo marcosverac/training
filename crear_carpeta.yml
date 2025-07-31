@@ -1,6 +1,6 @@
 - name: Ejecutar script PowerShell para SCP y enviar texto desde variable password_controller
   hosts: Windows
-  gather_facts: no
+  gather_facts: no 
   vars:
     password_controller: "Hola_123."
 

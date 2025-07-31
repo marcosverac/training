@@ -11,7 +11,7 @@
         path: "{{ local_output_dir }}"
         state: directory
         mode: '0755'
-      delegate_to: ansible_controller
+      delegate_to: localhost
       ignore_errors: true
  #   - name: Traer reporte al controlador desde Windows
  #     fetch:

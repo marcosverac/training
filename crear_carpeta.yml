@@ -9,7 +9,7 @@
       win_shell: |
         $wshell = New-Object -ComObject WScript.Shell
 
-        Start-Process powershell -ArgumentList '-NoExit', '-Command', 'scp "C:\Users\usr_controller.WINDOWS-22\Documents\Estado_Servidor\datos_estado_servidor_{{ inventory_hostname }}.yml" usr_controller@192.168.100.119:/tmp/estado_servidores/' -NoNewWindow
+        Start-Process powershell -ArgumentList '-NoExit', '-Command', 'scp "C:\Users\controller_usr\Documents\Estado_Servidor\datos_estado_servidor_{{ inventory_hostname }}.yml" controller_usr@192.168.100.119:/tmp/estado_servidores/' -NoNewWindow
 
         Start-Sleep -Seconds 2
 

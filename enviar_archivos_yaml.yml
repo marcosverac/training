@@ -31,3 +31,12 @@
       become: false
       when: inventory_hostname == 'ansible_controller'
       ignore_errors: true
+
+    - name: Copiar archivo al servidor destino
+      copy:
+        src: '{{ local_output_dir }}/datos_estado_servidor_{{ inventory_hostname }}.yml"'
+        dest: '/tmp/estado_servidores/'
+      loop: "{{ output_files }}"
+      delegate_to: ansible_controller
+      when: inventory_hostname == 'ansible_controller'
+      ignore_errors: true

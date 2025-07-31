@@ -6,16 +6,16 @@
     remote_output_dir: "C:\\tmp"
     local_output_dir: "/tmp/estado_servidores/"
   tasks:
-    - name: Traer reporte al controlador desde Windows
-      fetch:
-        src: "{{ remote_output_dir }}\\datos_estado_servidor_{{ inventory_hostname }}.yml"
-        dest: "{{ local_output_dir }}"
-        flat: true
-      when: inventory_hostname != 'ansible_controller'
-      ignore_errors: true
+ #   - name: Traer reporte al controlador desde Windows
+ #     fetch:
+ #       src: "{{ remote_output_dir }}\\datos_estado_servidor_{{ inventory_hostname }}.yml"
+ #      dest: "{{ local_output_dir }}"
+ #      flat: true
+ #     when: inventory_hostname != 'ansible_controller'
+ #    ignore_errors: true
 
     - name: Ejecutar 'ls' en el directorio de origen
-      shell: 'ls {{ local_output_dir }}'
+      shell: 'sudo ls {{ local_output_dir }}'
       register: output
       delegate_to: localhost
       when: inventory_hostname == 'ansible_controller'

@@ -1,6 +1,6 @@
 ---
 - name: Traer archivos desde nodos Windows al nodo controlador
-  hosts: "{{ grupoHosts }}"
+  hosts: all
   gather_facts: false
   vars:
     remote_output_dir: "C:\\tmp"

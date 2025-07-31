@@ -1,33 +1,27 @@
-- name: Ejecutar script PowerShell para SCP y enviar texto desde variable password_controller
-  hosts: Windows
-  gather_facts: no 
-  vars:
-    password_controller: "Hola_123."
-
+- name: Generar y transferir archivos desde Windows a Linux
+  hosts: windows
+  gather_facts: false
   tasks:
-    - name: Ejecutar comando PowerShell que hace SCP y SendKeys con variable password_controller
-      win_shell: |
-        $wshell = New-Object -ComObject WScript.Shell
+   # - name: Generar archivo de estado en cada Windows
+   #   ansible.windows.win_shell: |
+   #    echo "Estado generado en {{ ansible_hostname }}" > C:\Temp\estado_{{ ansible_hostname }}.txt
 
-        Start-Process powershell -ArgumentList '-NoExit', '-Command', 'scp "C:\Users\controller_usr\Documents\Estado_Servidor\datos_estado_servidor_{{ inventory_hostname }}.yml" controller_usr@192.168.100.119:/tmp/estado_servidores/' -NoNewWindow
+    - name: Copiar archivo al nodo controlador
+      ansible.builtin.fetch:
+        src: C:\Temp\estado_{{ ansible_hostname }}.txt
+        dest: /home/controlador/archivos_windows/
+        flat: yes
 
-        Start-Sleep -Seconds 2
-
-        $wshell.SendKeys("{{ password_controller }}{ENTER}")
-
-
-
-#    - name: Traer reporte al controlador desde Windows
-#      fetch:
-#        src: "{{ remote_output_dir }}\\datos_estado_servidor_{{ inventory_hostname }}.yml"
-#        dest: "{{ local_output_dir }}"
-#        flat: true
-#      when: inventory_hostname != 'ansible_controller'
-#      ignore_errors: true
-
-#    - name: Ejecutar 'ls' en el directorio de origen
-#      shell: 'ls /home/runner'
-#     register: output
-#      delegate_to: localhost
-#     when: inventory_hostname == 'ansible_controller'
-#      ignore_errors: true
+- name: Transferir archivos al servidor Linux
+  hosts: ansible_controller
+  gather_facts: false
+  tasks:
+    - name: Copiar todos los archivos recolectados al servidor destino
+      ansible.builtin.copy:
+        src: /home/controlador/archivos_windows/
+        dest: /home/ivera/reportes_windows/
+        owner: ivera
+        group: ivera
+        mode: '0644'
+        remote_src: no
+      delegate_to: localhost

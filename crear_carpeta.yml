@@ -1,19 +1,21 @@
----
-- name: Traer archivos desde nodos Windows al nodo controlador
-  hosts: all
-  gather_facts: false
+- name: Ejecutar script PowerShell para SCP y enviar texto desde variable password_controller
+  hosts: Windows
+  gather_facts: no
   vars:
-    remote_output_dir: "C:\\tmp"
-    local_output_dir: "/home/estado_servidores/"
+    password_controller: "Hola_123."
+
   tasks:
-    - name: Crear carpeta local en el controlador
-      file:
-        path: "{{ local_output_dir }}"
-        state: directory
-        mode: '0755'
-      delegate_to: localhost
-      when: inventory_hostname == 'ansible_controller'
-      ignore_errors: true
+    - name: Ejecutar comando PowerShell que hace SCP y SendKeys con variable password_controller
+      win_shell: |
+        $wshell = New-Object -ComObject WScript.Shell
+
+        Start-Process powershell -ArgumentList '-NoExit', '-Command', 'scp "C:\Users\usr_controller.WINDOWS-22\Documents\Estado_Servidor\datos_estado_servidor_{{ inventory_hostname }}.yml" usr_controller@192.168.100.119:/tmp/estado_servidores/' -NoNewWindow
+
+        Start-Sleep -Seconds 2
+
+        $wshell.SendKeys("{{ password_controller }}{ENTER}")
+
+
 
 #    - name: Traer reporte al controlador desde Windows
 #      fetch:

@@ -58,7 +58,7 @@
 
     - name: Copiar archivo al servidor destino
       copy:
-        src: '{{ local_output_dir }}datos_estado_servidor_{{ hostname_servidor_windows }}.yml'
+        src: '{{ local_output_dir }}
         dest: '/home/usr_controller/'
       delegate_to: ansible_controller
      # when: inventory_hostname == 'ansible_controller'

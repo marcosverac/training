@@ -1,19 +1,12 @@
 ---
-- name: Traer archivos desde nodos Windows al nodo controlador
-  hosts: all
+- name: Crear carpeta estado_servidores en nodo controlador
+  hosts: ansible_controller
   gather_facts: false
   vars:
     remote_output_dir: "C:\\tmp"
     local_output_dir: "/home/estado_servidores/"
   tasks:
-    - name: Asignar inventory_hostname a variable hostname_servidor_windows
-      set_fact:
-        hostname_servidor_windows: "{{ inventory_hostname }}"
-
-    - name: Mostrar hostname_servidor_windows
-      debug:
-        var: hostname_servidor_windows
-        
+      
     - name: Crear carpeta local en el controlador
       file:
         path: "{{ local_output_dir }}"
@@ -21,23 +14,47 @@
         mode: '0755'
       delegate_to: localhost
       become: false
-      when: inventory_hostname == 'ansible_controller'
+     # when: inventory_hostname == 'ansible_controller'
       ignore_errors: true
 
+- name: Traer archivos desde nodos Windows al nodo controlador
+  hosts: Windows
+  gather_facts: false
+  vars:
+    remote_output_dir: "C:\\tmp"
+    local_output_dir: "/home/estado_servidores/"
+  tasks:
     - name: Traer reporte al controlador desde Windows
       fetch:
         src: "{{ remote_output_dir }}/datos_estado_servidor_{{ inventory_hostname }}.yml"
         dest: "{{ local_output_dir }}"
         flat: true
-      when: inventory_hostname != 'ansible_controller'
+     # when: inventory_hostname != 'ansible_controller'
       ignore_errors: true
 
+    - name: Crear variable dinámica tipo hostname_servidor_{{ inventory_hostname }}
+      set_fact:
+        "{{ 'hostname_servidor_' ~ inventory_hostname }}": "{{ inventory_hostname }}"
+
+    - name: Mostrar variable recién creada
+      debug:
+        msg: "{{ lookup('vars', 'hostname_servidor_' ~ inventory_hostname) }}"
+
+
+
+- name: Traer archivos desde nodos controlador a Linux
+  hosts: ansible_controller
+  gather_facts: false
+  vars:
+    remote_output_dir: "C:\\tmp"
+    local_output_dir: "/home/estado_servidores/"
+  tasks:
     - name: Ejecutar 'ls' en el directorio de origen
       shell: 'ls /home/estado_servidores/'
       register: output
       delegate_to: localhost
       become: false
-      when: inventory_hostname == 'ansible_controller'
+     # when: inventory_hostname == 'ansible_controller'
       ignore_errors: true
 
     - name: Copiar archivo al servidor destino
@@ -45,5 +62,5 @@
         src: '{{ local_output_dir }}datos_estado_servidor_{{ hostname_servidor_windows }}.yml'
         dest: '/home/usr_controller/'
       delegate_to: ansible_controller
-      when: inventory_hostname == 'ansible_controller'
+     # when: inventory_hostname == 'ansible_controller'
       ignore_errors: true  

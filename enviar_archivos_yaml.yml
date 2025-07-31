@@ -38,4 +38,4 @@
         dest: '/tmp/estado_servidores/'
       delegate_to: ansible_controller
       when: inventory_hostname == 'ansible_controller'
-      ignore_errors: true
+      ignore_errors: true  

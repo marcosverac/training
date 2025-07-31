@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     remote_output_dir: "C:\\tmp"
-    local_output_dir: "/tmp/estado_servidores/"
+    local_output_dir: "/home/estado_servidores/"
   tasks:
     - name: Crear carpeta local en el controlador
       file:

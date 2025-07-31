@@ -9,7 +9,7 @@
 
     - name: Copiar archivo al nodo controlador
       ansible.builtin.fetch:
-        src: C:\tmp
+        src: C:\tmp\datos_estado_servidor_windows_server_2022_2.yml
         dest: /home/controlador/archivos_windows/
         flat: yes
 

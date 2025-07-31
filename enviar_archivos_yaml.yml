@@ -22,7 +22,7 @@
 #      ignore_errors: true
 
     - name: Ejecutar 'ls' en el directorio de origen
-      shell: 'ls /home'
+      shell: 'ls /home/runner'
       register: output
       delegate_to: localhost
       when: inventory_hostname == 'ansible_controller'

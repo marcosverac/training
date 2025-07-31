@@ -9,6 +9,6 @@
     - name: Traer reporte al controlador desde Windows
       fetch:
         src: "{{ remote_output_dir }}\\datos_estado_servidor_{{ inventory_hostname }}.yml"
-       dest: "{{ local_output_dir }}"
-       flat: true
-     ignore_errors: true
+        dest: "{{ local_output_dir }}"
+        flat: true
+      ignore_errors: true

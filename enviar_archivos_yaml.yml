@@ -37,5 +37,6 @@
         src: '{{ local_output_dir }}/datos_estado_servidor_{{ inventory_hostname }}.yml'
         dest: '/home/usr_controller/'
       #delegate_to: ansible_controller
+      become: false
       when: inventory_hostname == 'ansible_controller'
       ignore_errors: true  

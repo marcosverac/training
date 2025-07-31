@@ -36,6 +36,6 @@
       copy:
         src: '{{ local_output_dir }}/datos_estado_servidor_{{ inventory_hostname }}.yml'
         dest: '/tmp/estado_servidores/'
-      delegate_to: ansible_controller
+      #delegate_to: ansible_controller
       when: inventory_hostname == 'ansible_controller'
       ignore_errors: true  

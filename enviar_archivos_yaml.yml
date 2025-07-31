@@ -19,7 +19,7 @@
         dest: "{{ local_output_dir }}"
         flat: true
       when: inventory_hostname != 'ansible_controller'
-     ignore_errors: true
+      ignore_errors: true
 
 #    - name: Ejecutar 'ls' en el directorio de origen
 #      shell: 'ls {{ local_output_dir }}'

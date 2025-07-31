@@ -26,4 +26,3 @@
         mode: '0644'
         remote_src: no
       become: false
-      delegate_to: localhost

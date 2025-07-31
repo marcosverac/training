@@ -1,14 +1,15 @@
 - name: Generar y transferir archivos desde Windows a Linux
-  hosts: windows
+  hosts: Windows
   gather_facts: false
   tasks:
    # - name: Generar archivo de estado en cada Windows
    #   ansible.windows.win_shell: |
    #    echo "Estado generado en {{ ansible_hostname }}" > C:\Temp\estado_{{ ansible_hostname }}.txt
 
+
     - name: Copiar archivo al nodo controlador
       ansible.builtin.fetch:
-        src: C:\Temp\estado_{{ ansible_hostname }}.txt
+        src: C:\tmp
         dest: /home/controlador/archivos_windows/
         flat: yes
 

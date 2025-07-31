@@ -1,14 +1,14 @@
 ---
-- name: Enviar archivos yamls a nodo de ejecucion
+- name: Traer archivos desde nodos Windows al nodo controlador
   hosts: "{{ grupoHosts }}"
   gather_facts: false
   vars:
-    remote_output_dir: "/tmp/"
+    remote_output_dir: "C:\\tmp"
     local_output_dir: "/tmp/estado_servidores/"
   tasks:
-    - name: Traer reporte al controlador
+    - name: Traer reporte al controlador desde Windows
       fetch:
-        src: "{{ remote_output_dir }}/reporte_{{ inventory_hostname }}.yml"
+        src: "{{ remote_output_dir }}\\reporte_{{ inventory_hostname }}.yml"
         dest: "{{ local_output_dir }}"
         flat: true
       ignore_errors: true

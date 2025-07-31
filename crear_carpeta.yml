@@ -19,7 +19,7 @@
   tasks:
     - name: Copiar todos los archivos recolectados al servidor destino
       ansible.builtin.copy:
-        src: /home/controlador/archivos_windows/
+        src: /home/controlador/archivos_windows/    #Validar esto
         dest: /home/usr_controller/
         owner: usr_controller
         group: usr_controller

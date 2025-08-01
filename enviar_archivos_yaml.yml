@@ -60,6 +60,6 @@
       copy:
         src: '{{ local_output_dir }}'
         dest: '/home/usr_controller/'
-      delegate_to: ansible_controller
+      delegate_to: 192.168.100.119
      # when: inventory_hostname == 'ansible_controller'
       ignore_errors: true  

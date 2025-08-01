@@ -42,7 +42,7 @@
 
 
 - name: Traer archivos desde nodos controlador a Linux
-  hosts: localhost
+  hosts: Windows
   gather_facts: false
   vars:
     remote_output_dir: "C:\\tmp"

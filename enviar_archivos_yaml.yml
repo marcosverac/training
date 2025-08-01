@@ -53,7 +53,7 @@
       register: output
       delegate_to: localhost
       become: false
-     # when: inventory_hostname == 'ansible_controller'
+      when: inventory_hostname == 'ansible_controller'
       ignore_errors: true
 
     - name: Copiar archivo al servidor destino

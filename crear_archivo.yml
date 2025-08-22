@@ -1,0 +1,14 @@
+---
+- name: Crear archivo en Windows
+  hosts: "{{ grupoHosts }}"
+  gather_facts: no
+  tasks:
+    - name: Crear archivo vacío
+      ansible.windows.win_file:
+        path: C:\Users\Public\archivo.txt
+        state: touch
+
+    - name: Crear archivo con contenido
+      ansible.windows.win_copy:
+        content: "Este es el contenido inicial del archivo."
+        dest: C:\Users\Public\archivo_contenido.txt
